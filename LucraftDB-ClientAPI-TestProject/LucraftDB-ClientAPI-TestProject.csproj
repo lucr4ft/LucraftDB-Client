@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Lucraft.Database.Client.Test</RootNamespace>
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LucraftDB-ClientAPI\LucraftDB-ClientAPI.csproj" />
+  </ItemGroup>
+
+</Project>

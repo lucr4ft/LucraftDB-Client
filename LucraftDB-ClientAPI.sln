@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucraftDB-ClientAPI", "LucraftDB-ClientAPI\LucraftDB-ClientAPI.csproj", "{5A361283-473A-4E48-A680-4E2DEBEACF4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucraftDB-ClientAPI-TestProject", "LucraftDB-ClientAPI-TestProject\LucraftDB-ClientAPI-TestProject.csproj", "{5A75A0AC-1612-4501-898E-0AF12EB859A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A361283-473A-4E48-A680-4E2DEBEACF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A361283-473A-4E48-A680-4E2DEBEACF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A361283-473A-4E48-A680-4E2DEBEACF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A361283-473A-4E48-A680-4E2DEBEACF4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A75A0AC-1612-4501-898E-0AF12EB859A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A75A0AC-1612-4501-898E-0AF12EB859A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A75A0AC-1612-4501-898E-0AF12EB859A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A75A0AC-1612-4501-898E-0AF12EB859A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C57B9F58-E1A2-40FB-9801-9B4675896EA1}
+	EndGlobalSection
+EndGlobal
