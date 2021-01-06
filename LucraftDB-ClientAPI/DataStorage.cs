@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lucraft.Database.Client
+﻿namespace Lucraft.Database.Client
 {
     public class DataStorage
     {
@@ -30,6 +26,12 @@ namespace Lucraft.Database.Client
         public DatabaseReference GetDatabase(string id)
         {
             return new DatabaseReference(id);
+        }
+
+        internal string MakeRequest(string req)
+        {
+            client.Send(req);
+            return client.ReadLine();
         }
     }
 }

@@ -1,35 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Net.Sockets;
-using System.Text;
 
 namespace Lucraft.Database.Client
 {
     class Client
     {
         private TcpClient tcpClient;
-        private NetworkStream networkStream;
+        private StreamReader streamReader;
+        private StreamWriter streamWriter;
 
         public void Connect(string host, int port)
         {
             tcpClient = new TcpClient();
             tcpClient.Connect(host, port);
-            networkStream = tcpClient.GetStream();
+            streamReader = new StreamReader(tcpClient.GetStream());
+            streamWriter = new StreamWriter(tcpClient.GetStream())
+            {
+                AutoFlush = true
+            };
         }
 
         public void Send(string msg)
         {
-
+            streamWriter.WriteLine(msg);
         }
 
         public string ReadLine()
         {
-            return "";
+            return streamReader.ReadLine();
         }
 
         public void Disconnect()
         {
-            Send("\u0004");
+            streamReader.Close();
+            streamWriter.Close();
             tcpClient.Close();
         }
     }

@@ -1,34 +1,37 @@
-﻿using System;
+﻿using Lucraft.Database.Client.Query;
+using Newtonsoft.Json;
+using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Lucraft.Database.Client
 {
     public class CollectionReference
     {
-        private string dbID { get; set; }
+        private string DbID { get; set; }
         public string ID { get; private set; }
 
         public CollectionReference(string dbID, string id)
         {
-            this.dbID = dbID;
-            this.ID = id;
+            DbID = dbID;
+            ID = id;
         }
 
-        public async Task<CollectionSnapshot> Get()
+        public CollectionSnapshot Get()
         {
-            return null;
+            string req = $"get /{DbID}/{ID}/*";
+            string res = DataStorage.Instance.MakeRequest(req);
+            return JsonConvert.DeserializeObject<CollectionSnapshot>(res);
         }
 
-        public async Task<QuerySnapshot> Query(string queryStr)
+        public QuerySnapshot Query(string queryStr)
         {
-            return null;
+            string req = $"get /{DbID}/{ID}/* where {queryStr}";
+            string res = DataStorage.Instance.MakeRequest(req);
+            return JsonConvert.DeserializeObject<QuerySnapshot>(res);
         }
 
-        public async Task<QuerySnapshot> Query<T>(Expression<Func<T, bool>> queryExpr)
+        public QuerySnapshot Query<T>(Expression<Func<T, bool>> queryExpr)
         {
-            Console.WriteLine(queryExpr.Body.ToString());
-
             string exprBody = queryExpr.Body.ToString();
             string paramName = queryExpr.Parameters[0].Name;
 
@@ -36,18 +39,12 @@ namespace Lucraft.Database.Client
             {
                 var attributes = (DatabaseProperty[])property.GetCustomAttributes(typeof(DatabaseProperty), false);
                 foreach (var attribute in attributes)
-                {
                     exprBody = exprBody.Replace(paramName + "." + property.Name, attribute.name);
-                }
             }
-            string queryStr = exprBody.Replace(paramName + ".", "").Replace("AndAlso", "&&").Replace("OrElse", "||");
-
-            //string requestStr = $"get /{dbID}/{ID}/*?{queryStr}";
-            string requestStr = $"get /{dbID}/{ID}/* where {queryStr}";
-
-            Console.WriteLine(requestStr);
-
-            return null;
+            string queryStr = exprBody.Replace(paramName + ".", "")
+                                      .Replace("AndAlso", "&&")
+                                      .Replace("OrElse", "||");
+            return Query(queryStr);
         }
     }
 }

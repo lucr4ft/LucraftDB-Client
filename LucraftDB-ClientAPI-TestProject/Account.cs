@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lucraft.Database.Client.Test
+﻿namespace Lucraft.Database.Client.Test
 {
     public class Account
     {
@@ -14,5 +8,10 @@ namespace Lucraft.Database.Client.Test
         public string Email { get; set; }
         [DatabaseProperty("password-hash")]
         public string PasswordHash { get; set; }
+
+        public override string ToString()
+        {
+            return "username: " + Username + ";email: " + Email + ";password-hash: " + PasswordHash;
+        }
     }
 }
