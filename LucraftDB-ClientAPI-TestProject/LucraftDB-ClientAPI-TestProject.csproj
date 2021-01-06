@@ -11,4 +11,8 @@
     <ProjectReference Include="..\LucraftDB-ClientAPI\LucraftDB-ClientAPI.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
 </Project>
