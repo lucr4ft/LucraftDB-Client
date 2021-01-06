@@ -1,6 +1,7 @@
 ﻿using Lucraft.Database.Client.Query;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Lucraft.Database.Client
@@ -23,6 +24,11 @@ namespace Lucraft.Database.Client
             return JsonConvert.DeserializeObject<CollectionSnapshot>(res);
         }
 
+        public void Set(object data)
+        {
+            DataStorage.Instance.MakeRequest($"get /{DbID}/{ID}/* {JsonConvert.SerializeObject(data)}");
+        }
+
         public QuerySnapshot Query(string queryStr)
         {
             string req = $"get /{DbID}/{ID}/* where {queryStr}";
@@ -30,7 +36,7 @@ namespace Lucraft.Database.Client
             return JsonConvert.DeserializeObject<QuerySnapshot>(res);
         }
 
-        public QuerySnapshot Query<T>(Expression<Func<T, bool>> queryExpr)
+        public QuerySnapshot Query<T>(Expression<Func<T, bool>> queryExpr, params object[] args)
         {
             string exprBody = queryExpr.Body.ToString();
             string paramName = queryExpr.Parameters[0].Name;
@@ -44,7 +50,7 @@ namespace Lucraft.Database.Client
             string queryStr = exprBody.Replace(paramName + ".", "")
                                       .Replace("AndAlso", "&&")
                                       .Replace("OrElse", "||");
-            return Query(queryStr);
+            return Query(string.Format(queryStr, args));
         }
     }
 }
