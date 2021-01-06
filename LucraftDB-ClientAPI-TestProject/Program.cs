@@ -1,5 +1,6 @@
 ﻿using Lucraft.Database.Client.Query;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Lucraft.Database.Client.Test
@@ -30,40 +31,45 @@ namespace Lucraft.Database.Client.Test
             DataStorage.SetInstance("192.168.178.60");
             DatabaseReference db = DataStorage.Instance.GetDatabase("website");
 
-            QuerySnapshot querySnapshot = db.GetCollection("accounts").Query<Account>((account) => account.Email == "luca.lewin1203@gmail.com");
-            querySnapshot.Documents.ForEach(doc =>
-            {
-                if (doc.Exists)
-                {
-                    Console.WriteLine("Found document with id: " + doc.ID + " | " + doc.ConvertTo<Account>());
-                }
-            });
+            string test = "luca.lewin1203@gmail.com";
+            //Console.WriteLine(ToQueryString<Account>((account) => account.Email == "{0}", test));
+
+
+
+            QuerySnapshot querySnapshot = db.GetCollection("accounts").Query<Account>((account) => account.Email == "{0}", test);
+            //querySnapshot.Documents.ForEach(doc =>
+            //{
+            //    if (doc.Exists)
+            //    {
+            //        Console.WriteLine("Found document with id: " + doc.ID + " | " + doc.ConvertTo<Account>());
+            //    }
+            //});
         }
 
 
-        //private static string ToQueryString<T>(Expression<Func<T, bool>> queryExpr)
-        //{
-        //    Console.WriteLine(queryExpr.Body.ToString());
+        private static string ToQueryString<T>(Expression<Func<T, bool>> queryExpr, params object[] args)
+        {
+            Console.WriteLine(queryExpr.Body.ReduceExtensions().ToString());
 
-        //    string exprBody = queryExpr.Body.ToString();
-        //    string paramName = queryExpr.Parameters[0].Name;
+            string exprBody = queryExpr.Body.ToString();
+            string paramName = queryExpr.Parameters[0].Name;
 
-        //    foreach (var property in typeof(T).GetProperties())
-        //    {
-        //        var attributes = (DatabaseProperty[])property.GetCustomAttributes(typeof(DatabaseProperty), false);
-        //        foreach (var attribute in attributes)
-        //        {
-        //            exprBody = exprBody.Replace(paramName + "." + property.Name, attribute.name);
-        //        }
-        //    }
-        //    string queryStr = exprBody.Replace(paramName + ".", "").Replace("AndAlso", "&&").Replace("OrElse", "||");
+            foreach (var property in typeof(T).GetProperties())
+            {
+                var attributes = (DatabaseProperty[])property.GetCustomAttributes(typeof(DatabaseProperty), false);
+                foreach (var attribute in attributes)
+                {
+                    exprBody = exprBody.Replace(paramName + "." + property.Name, attribute.name);
+                }
+            }
+            string queryStr = exprBody.Replace(paramName + ".", "").Replace("AndAlso", "&&").Replace("OrElse", "||");
 
-        //    //string requestStr = $"get /{dbID}/{ID}/*?{queryStr}";
+            //string requestStr = $"get /{dbID}/{ID}/*?{queryStr}";
 
-        //    Console.WriteLine(queryStr);
+            Console.WriteLine(queryStr);
 
-        //    return queryStr;
-        //}
+            return string.Format(queryStr, args);
+        }
 
     }
 }
