@@ -7,8 +7,8 @@ namespace Lucraft.Database.Client
 {
     public class CollectionReference
     {
-        private string DbID { get; set; }
-        public string ID { get; private set; }
+        private string DbID { get; init; }
+        public string ID { get; init; }
 
         public CollectionReference(string dbID, string id)
         {
