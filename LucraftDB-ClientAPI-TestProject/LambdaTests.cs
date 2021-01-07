@@ -5,44 +5,33 @@ using System.Linq.Expressions;
 
 namespace Lucraft.Database.Client.Test
 {
-    public class LambdaTests
+    internal class LambdaTests
     {
 
         public static string LambdaToString<T>(Expression<Func<T, bool>> expression)
         {
-
             var replacements = new Dictionary<string, object>();
             WalkExpression(replacements, expression);
-
             string body = expression.Body.ToString();
-
-            //foreach (var parm in expression.Parameters)
-            //{
-            //    var parmName = parm.Name;
-            //    var parmTypeName = parm.Type.Name;
-            //    body = body.Replace(parmName + ".", parmTypeName + ".");
-            //}
-
             string paramName = expression.Parameters[0].Name;
-
             foreach (var property in typeof(T).GetProperties())
             {
                 var attributes = (DatabaseProperty[])property.GetCustomAttributes(typeof(DatabaseProperty), false);
                 foreach (var attribute in attributes)
-                {
                     body = body.Replace(paramName + "." + property.Name, attribute.name);
-                }
             }
-            body = body.Replace(paramName + ".", "").Replace("AndAlso", "&&").Replace("OrElse", "||");
-
+            body = body.Replace(paramName + ".", "").Replace(" AndAlso ", "&&").Replace(" OrElse ", "||");
             foreach (var replacement in replacements)
             {
                 if (replacement.Value is string)
-                    body = body.Replace(replacement.Key, $"\"{replacement.Value}\"");
+                    body = body.Replace(replacement.Key, $"\"{replacement.Value}\"");               // "replacement value"
+                else if (replacement.Value is bool)
+                    body = body.Replace(replacement.Key, replacement.Value.ToString().ToLower());   // True/False -> true/false
+                else if (replacement.Value == null)
+                    body = body.Replace(replacement.Key, "null");                                   // null
                 else
-                    body = body.Replace(replacement.Key, replacement.Value.ToString());
+                    body = body.Replace(replacement.Key, replacement.Value.ToString());             // probably a number
             }
-
             return body;
         }
 
