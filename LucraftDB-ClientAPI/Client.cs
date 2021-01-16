@@ -22,7 +22,7 @@ namespace Lucraft.Database.Client
 
         public void Send(string msg)
         {
-            streamWriter.WriteLine(msg);
+            streamWriter.Write(msg + "\n");
         }
 
         public string ReadLine()
