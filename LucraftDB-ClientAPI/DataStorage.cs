@@ -3,6 +3,7 @@
     public class DataStorage
     {
         private static readonly int DefaultPort = 7864;
+        private static readonly Client client = new();
         public static DataStorage Instance;
 
         public static void SetInstance(string host)
@@ -15,11 +16,8 @@
             Instance = new DataStorage(host, port);
         }
 
-        private readonly Client client;
-
         private DataStorage(string host, int port)
         {
-            client = new Client();
             client.Connect(host, port);
         }
 
@@ -28,7 +26,7 @@
             return new DatabaseReference(id);
         }
 
-        internal string MakeRequest(string req)
+        static internal string MakeRequest(string req)
         {
             client.Send(req);
             return client.ReadLine();
