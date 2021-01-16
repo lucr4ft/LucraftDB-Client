@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+	  <LangVersion>9.0</LangVersion>
     <RootNamespace>Lucraft.Database.Client</RootNamespace>
   </PropertyGroup>
 
@@ -11,7 +12,6 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
     <Authors>Luca Lewin</Authors>
     <UserSecretsId>b8da8c3b-13d3-4ba2-ad54-972867bb08b2</UserSecretsId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -22,6 +22,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageTags>LucraftDB, Database, Lucraft, Client, LucraftDB Client, Lucraft.Database.Client</PackageTags>
+    <AssemblyName>Lucraft.Database.Client</AssemblyName>
   </PropertyGroup>
   
 </Project>
