@@ -6,12 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Lucraft.Utilities.Reflection" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
     <Authors>Luca Lewin</Authors>
+    <UserSecretsId>b8da8c3b-13d3-4ba2-ad54-972867bb08b2</UserSecretsId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>Lucraft.Database.Client</PackageId>
+    <Description>Client API for LucraftDB Database</Description>
+    <Copyright>Luca Lewin</Copyright>
+    <RepositoryUrl>https://github.com/lucr4ft/LucraftDB-ClientAPI</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageTags>LucraftDB, Database, Lucraft, Client, LucraftDB Client, Lucraft.Database.Client</PackageTags>
   </PropertyGroup>
   
 </Project>
