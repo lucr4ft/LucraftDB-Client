@@ -1,10 +1,12 @@
-﻿using NuGet;
+﻿using System;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Lucraft.Database.Client
 {
     public class DataStorage
     {
-        static internal string Version = new SemanticVersion(1, 0, 2, "beta.1").ToNormalizedString();
+        internal static string Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;//"1.0.2-alpha.1";//new SemanticVersion(1, 0, 2, "beta.1").ToNormalizedString();
 
         private static readonly int DefaultPort = 7864;
         private static readonly Client client = new();
