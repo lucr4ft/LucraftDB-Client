@@ -1,34 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-	  <LangVersion>9.0</LangVersion>
-    <RootNamespace>Lucraft.Database.Client</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>9.0</LangVersion>
+		<RootNamespace>Lucraft.Database.Client</RootNamespace>
+		<Authors>Luca Lewin</Authors>
+		<Description>Client API for LucraftDB Database</Description>
+		<PackageId>Lucraft.Database.Client</PackageId>
+		<RepositoryUrl>https://github.com/lucr4ft/LucraftDB-Client</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>Lucraft, LucraftDB, LucraftDB-Cliebt, Lucraft.Database, Lucraft.Database.Client</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Lucraft.Utilities.Reflection" Version="1.0.1" />
-    <PackageReference Include="MinVer" Version="2.4.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NuGet.Core" Version="2.14.0" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <Authors>Luca Lewin</Authors>
-    <UserSecretsId>b8da8c3b-13d3-4ba2-ad54-972867bb08b2</UserSecretsId>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageId>Lucraft.Database.Client</PackageId>
-    <Description>Client API for LucraftDB Databases</Description>
-    <Copyright>Luca Lewin</Copyright>
-    <RepositoryUrl>https://github.com/lucr4ft/LucraftDB-ClientAPI</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageTags>LucraftDB, Database, Lucraft, Client, LucraftDB Client, Lucraft.Database.Client</PackageTags>
-    <AssemblyName>Lucraft.Database.Client</AssemblyName>
-    <Version>1.0.2-beta.1</Version>
-  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="GitVersionTask" Version="5.5.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Lucraft.Utilities.Reflection" Version="1.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
   
 </Project>
