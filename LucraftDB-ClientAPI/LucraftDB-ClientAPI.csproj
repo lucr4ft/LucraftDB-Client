@@ -10,6 +10,9 @@
 		<RepositoryUrl>https://github.com/lucr4ft/LucraftDB-Client</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>Lucraft, LucraftDB, LucraftDB-Cliebt, Lucraft.Database, Lucraft.Database.Client</PackageTags>
+		<Copyright>Luca Lewin</Copyright>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<ItemGroup>
