@@ -4,6 +4,7 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>9.0</LangVersion>
 		<RootNamespace>Lucraft.Database.Client</RootNamespace>
+		<AssemblyName>Lucraft.Database.Client</AssemblyName>
 		<Authors>Luca Lewin</Authors>
 		<Description>Client API for LucraftDB Database</Description>
 		<PackageId>Lucraft.Database.Client</PackageId>
@@ -23,5 +24,10 @@
 		<PackageReference Include="Lucraft.Utilities.Reflection" Version="1.0.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 	</ItemGroup>
-  
+
+	<!--<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>-->
+	
 </Project>
