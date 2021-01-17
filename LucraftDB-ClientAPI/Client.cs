@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Sockets;
 
 namespace Lucraft.Database.Client
 {
-    class Client
+    internal class Client
     {
         private TcpClient tcpClient;
         private StreamReader streamReader;
@@ -14,10 +15,14 @@ namespace Lucraft.Database.Client
             tcpClient = new TcpClient();
             tcpClient.Connect(host, port);
             streamReader = new StreamReader(tcpClient.GetStream());
-            streamWriter = new StreamWriter(tcpClient.GetStream())
-            {
-                AutoFlush = true
-            };
+            streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            SendClientData();
+        }
+
+        private void SendClientData()
+        {
+            //Send("version:{" + DataStorage.Version + "}");
+            Console.WriteLine(DataStorage.Version);
         }
 
         public void Send(string msg)

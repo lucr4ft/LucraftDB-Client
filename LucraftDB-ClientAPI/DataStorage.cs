@@ -1,7 +1,11 @@
-﻿namespace Lucraft.Database.Client
+﻿using NuGet;
+
+namespace Lucraft.Database.Client
 {
     public class DataStorage
     {
+        static internal string Version = new SemanticVersion(1, 0, 2, "beta.1").ToNormalizedString();
+
         private static readonly int DefaultPort = 7864;
         private static readonly Client client = new();
         public static DataStorage Instance;
