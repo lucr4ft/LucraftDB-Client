@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lucraft.Database.Client
+﻿namespace Lucraft.Database.Client
 {
     public class WriteResult
     {
