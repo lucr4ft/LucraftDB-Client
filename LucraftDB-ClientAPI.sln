@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucraftDB-ClientAPI", "LucraftDB-ClientAPI\LucraftDB-ClientAPI.csproj", "{5A361283-473A-4E48-A680-4E2DEBEACF4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LucraftDB-ClientAPI", "LucraftDB-ClientAPI\LucraftDB-ClientAPI.csproj", "{5A361283-473A-4E48-A680-4E2DEBEACF4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucraftDB-ClientAPI-TestProject", "LucraftDB-ClientAPI-TestProject\LucraftDB-ClientAPI-TestProject.csproj", "{5A75A0AC-1612-4501-898E-0AF12EB859A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LucraftDB-ClientAPI-TestProject", "LucraftDB-ClientAPI-TestProject\LucraftDB-ClientAPI-TestProject.csproj", "{5A75A0AC-1612-4501-898E-0AF12EB859A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
