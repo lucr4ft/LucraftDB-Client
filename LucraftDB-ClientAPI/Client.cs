@@ -25,7 +25,7 @@ namespace Lucraft.Database.Client
             await tcpClient.ConnectAsync(host, port);
             streamReader = new StreamReader(tcpClient.GetStream());
             streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
-            SendClientData();
+            //SendClientData();
         }
 
         internal void Connect()
@@ -34,7 +34,7 @@ namespace Lucraft.Database.Client
             tcpClient.Connect(host, port);
             streamReader = new StreamReader(tcpClient.GetStream());
             streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
-            SendClientData();
+            //SendClientData();
         }
 
         private void SendClientData()
