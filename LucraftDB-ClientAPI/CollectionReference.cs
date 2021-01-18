@@ -24,21 +24,21 @@ namespace Lucraft.Database.Client
 
         public CollectionSnapshot Get()
         {
-            string req = $"get /{DbID}/{ID}/*";
+            string req = $"{RequestType.Get} /{DbID}/{ID}/*";
             string res = DataStorage.MakeRequest(req);
             return JsonConvert.DeserializeObject<CollectionSnapshot>(res);
         }
 
         public WriteResult Set(object data)
         {
-            string req = $"get /{DbID}/{ID}/* {JsonConvert.SerializeObject(data)}";
+            string req = $"{RequestType.Set} /{DbID}/{ID}/* {JsonConvert.SerializeObject(data)}";
             string res = DataStorage.MakeRequest(req);
             return JsonConvert.DeserializeObject<WriteResult>(res);
         }
 
         public QuerySnapshot Query(string queryStr)
         {
-            string req = $"get /{DbID}/{ID}/* where {queryStr}";
+            string req = $"{RequestType.Get} /{DbID}/{ID}/* where {queryStr}";
             string res = DataStorage.MakeRequest(req);
             return JsonConvert.DeserializeObject<QuerySnapshot>(res);
         }
