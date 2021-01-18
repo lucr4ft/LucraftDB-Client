@@ -1,6 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace Lucraft.Database.Client
 {
@@ -10,7 +10,25 @@ namespace Lucraft.Database.Client
         private StreamReader streamReader;
         private StreamWriter streamWriter;
 
-        public void Connect(string host, int port)
+        private readonly string host;
+        private readonly int port;
+
+        internal Client(string host, int port)
+        {
+            this.host = host;
+            this.port = port;
+        }
+
+        internal async Task ConnectAsync()
+        {
+            tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(host, port);
+            streamReader = new StreamReader(tcpClient.GetStream());
+            streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            SendClientData();
+        }
+
+        internal void Connect()
         {
             tcpClient = new TcpClient();
             tcpClient.Connect(host, port);
@@ -22,20 +40,29 @@ namespace Lucraft.Database.Client
         private void SendClientData()
         {
             //Send("version:{" + DataStorage.Version + "}");
-            Console.WriteLine(DataStorage.Version);
         }
 
-        public void Send(string msg)
+        internal void Send(string msg)
         {
             streamWriter.Write(msg + "\n");
         }
 
-        public string ReadLine()
+        internal async Task SendAsync(string msg)
+        {
+            await streamWriter.WriteAsync(msg + "\n");
+        }
+
+        internal string ReadLine()
         {
             return streamReader.ReadLine();
         }
 
-        public void Disconnect()
+        internal async Task<string> ReadAsync()
+        {
+            return await streamReader.ReadLineAsync();
+        }
+
+        internal void Disconnect()
         {
             streamReader.Close();
             streamWriter.Close();
