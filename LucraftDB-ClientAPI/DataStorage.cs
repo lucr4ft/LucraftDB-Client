@@ -1,30 +1,43 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Lucraft.Database.Client
 {
     public class DataStorage
     {
-        internal static string Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;//"1.0.2-alpha.1";//new SemanticVersion(1, 0, 2, "beta.1").ToNormalizedString();
+        internal static readonly string Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
 
         private static readonly int DefaultPort = 7864;
-        private static readonly Client client = new();
-        public static DataStorage Instance;
+
+        private static DataStorage instance;
+        private static Client client;
 
         public static void SetInstance(string host)
         {
-            Instance = new DataStorage(host, DefaultPort);
+            instance = new DataStorage(host, DefaultPort);
         }
 
         public static void SetInstance(string host, int port)
         {
-            Instance = new DataStorage(host, port);
+            instance = new DataStorage(host, port);
+        }
+
+        public static DataStorage GetInstance() => instance;
+
+        public static void Connect()
+        {
+            client.Connect();
+        }
+
+        public static async Task ConnectAsync()
+        {
+            await client.ConnectAsync();
         }
 
         private DataStorage(string host, int port)
         {
-            client.Connect(host, port);
+            client = new Client(host, port);
         }
 
         public DatabaseReference GetDatabase(string id)
