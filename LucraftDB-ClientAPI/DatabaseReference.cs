@@ -4,14 +4,14 @@
     {
         public DatabaseReference(string id)
         {
-            ID = id;
+            Id = id;
         }
 
-        public string ID { get; private set; }
+        public string Id { get; }
 
         public CollectionReference GetCollection(string id)
         {
-            return new CollectionReference(ID, id);
+            return new(Id, id);
         }
     }
 }

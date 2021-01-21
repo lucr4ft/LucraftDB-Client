@@ -6,7 +6,7 @@ namespace Lucraft.Database.Client
     public class CollectionSnapshot
     {
         [JsonProperty("id")]
-        public string ID { get; init; }
+        public string Id { get; init; }
         [JsonProperty("Documents")]
         public List<DocumentSnapshot> Documents { get; init; }
     }

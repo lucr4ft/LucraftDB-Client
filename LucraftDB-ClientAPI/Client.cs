@@ -6,34 +6,34 @@ namespace Lucraft.Database.Client
 {
     internal class Client
     {
-        private TcpClient tcpClient;
-        private StreamReader streamReader;
-        private StreamWriter streamWriter;
+        private TcpClient _tcpClient;
+        private StreamReader _streamReader;
+        private StreamWriter _streamWriter;
 
-        private readonly string host;
-        private readonly int port;
+        private readonly string _host;
+        private readonly int _port;
 
         internal Client(string host, int port)
         {
-            this.host = host;
-            this.port = port;
+            _host = host;
+            _port = port;
         }
 
         internal async Task ConnectAsync()
         {
-            tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(host, port);
-            streamReader = new StreamReader(tcpClient.GetStream());
-            streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            _tcpClient = new TcpClient();
+            await _tcpClient.ConnectAsync(_host, _port);
+            _streamReader = new StreamReader(_tcpClient.GetStream());
+            _streamWriter = new StreamWriter(_tcpClient.GetStream()) { AutoFlush = true };
             //SendClientData();
         }
 
         internal void Connect()
         {
-            tcpClient = new TcpClient();
-            tcpClient.Connect(host, port);
-            streamReader = new StreamReader(tcpClient.GetStream());
-            streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            _tcpClient = new TcpClient();
+            _tcpClient.Connect(_host, _port);
+            _streamReader = new StreamReader(_tcpClient.GetStream());
+            _streamWriter = new StreamWriter(_tcpClient.GetStream()) { AutoFlush = true };
             //SendClientData();
         }
 
@@ -44,29 +44,29 @@ namespace Lucraft.Database.Client
 
         internal void Send(string msg)
         {
-            streamWriter.Write(msg + "\n");
+            _streamWriter.Write(msg + "\n");
         }
 
         internal async Task SendAsync(string msg)
         {
-            await streamWriter.WriteAsync(msg + "\n");
+            await _streamWriter.WriteAsync(msg + "\n");
         }
 
         internal string ReadLine()
         {
-            return streamReader.ReadLine();
+            return _streamReader.ReadLine();
         }
 
         internal async Task<string> ReadAsync()
         {
-            return await streamReader.ReadLineAsync();
+            return await _streamReader.ReadLineAsync();
         }
 
         internal void Disconnect()
         {
-            streamReader.Close();
-            streamWriter.Close();
-            tcpClient.Close();
+            _streamReader.Close();
+            _streamWriter.Close();
+            _tcpClient.Close();
         }
     }
 }

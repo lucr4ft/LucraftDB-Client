@@ -5,8 +5,8 @@ namespace Lucraft.Database.Client
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class DatabaseProperty : Attribute 
     {
-        public readonly string name;
+        public readonly string Name;
 
-        public DatabaseProperty(string name) => this.name = name;
+        public DatabaseProperty(string name) => Name = name;
     }
 }
