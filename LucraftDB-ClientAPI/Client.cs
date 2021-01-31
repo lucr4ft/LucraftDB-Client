@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
@@ -6,9 +9,9 @@ namespace Lucraft.Database.Client
 {
     internal class Client
     {
-        private TcpClient _tcpClient;
-        private StreamReader _streamReader;
-        private StreamWriter _streamWriter;
+        private TcpClient tcpClient;
+        private StreamReader streamReader;
+        private StreamWriter streamWriter;
 
         private readonly string _host;
         private readonly int _port;
@@ -21,52 +24,59 @@ namespace Lucraft.Database.Client
 
         internal async Task ConnectAsync()
         {
-            _tcpClient = new TcpClient();
-            await _tcpClient.ConnectAsync(_host, _port);
-            _streamReader = new StreamReader(_tcpClient.GetStream());
-            _streamWriter = new StreamWriter(_tcpClient.GetStream()) { AutoFlush = true };
-            //SendClientData();
+            tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(_host, _port);
+            streamReader = new StreamReader(tcpClient.GetStream());
+            streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            SendClientData();
         }
 
         internal void Connect()
         {
-            _tcpClient = new TcpClient();
-            _tcpClient.Connect(_host, _port);
-            _streamReader = new StreamReader(_tcpClient.GetStream());
-            _streamWriter = new StreamWriter(_tcpClient.GetStream()) { AutoFlush = true };
-            //SendClientData();
+            tcpClient = new TcpClient();
+            tcpClient.Connect(_host, _port);
+            streamReader = new StreamReader(tcpClient.GetStream());
+            streamWriter = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+            SendClientData();
         }
 
         private void SendClientData()
         {
-            //Send("version:{" + DataStorage.Version + "}");
+            Send("version=" + DataStorage.Version);
+            string response = ReadLine();
+            var model = JsonConvert.DeserializeObject<IDictionary<string, string>>(response);
+            if (model.ContainsKey("error"))
+            {
+                if (model["error"].Equals("lucraft.database.exception.outdated_client"))
+                    throw new OutdatedClientException(model["error-message"]);
+            }
         }
 
         internal void Send(string msg)
         {
-            _streamWriter.Write(msg + "\n");
+            streamWriter.Write(msg + "\n");
         }
 
         internal async Task SendAsync(string msg)
         {
-            await _streamWriter.WriteAsync(msg + "\n");
+            await streamWriter.WriteAsync(msg + "\n");
         }
 
         internal string ReadLine()
         {
-            return _streamReader.ReadLine();
+            return streamReader.ReadLine();
         }
 
-        internal async Task<string> ReadAsync()
+        internal async Task<string> ReadLineAsync()
         {
-            return await _streamReader.ReadLineAsync();
+            return await streamReader.ReadLineAsync();
         }
 
         internal void Disconnect()
         {
-            _streamReader.Close();
-            _streamWriter.Close();
-            _tcpClient.Close();
+            streamReader.Close();
+            streamWriter.Close();
+            tcpClient.Close();
         }
     }
 }
