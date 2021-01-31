@@ -19,7 +19,7 @@ namespace Lucraft.Database.Client.Test
 
             querySnapshot.Documents.ForEach((doc) =>
             {
-                Console.WriteLine(doc.ID + " -> " + doc.ConvertTo<Account>().ToString());
+                Console.WriteLine(doc.Id + " -> " + doc.ConvertTo<Account>().ToString());
             });
         }
     }

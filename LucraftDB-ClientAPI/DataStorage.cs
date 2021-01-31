@@ -8,36 +8,36 @@ namespace Lucraft.Database.Client
     {
         internal static readonly string Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
 
-        private static readonly int DefaultPort = 7864;
+        private const int DefaultPort = 7864;
 
-        private static DataStorage instance;
-        private static Client client;
+        private static DataStorage _instance;
+        private static Client _client;
 
         public static void SetInstance(string host)
         {
-            instance = new DataStorage(host, DefaultPort);
+            _instance = new DataStorage(host, DefaultPort);
         }
 
         public static void SetInstance(string host, int port)
         {
-            instance = new DataStorage(host, port);
+            _instance = new DataStorage(host, port);
         }
 
-        public static DataStorage GetInstance() => instance;
+        public static DataStorage GetInstance() => _instance;
 
         public static void Connect()
         {
-            client.Connect();
+            _client.Connect();
         }
 
         public static async Task ConnectAsync()
         {
-            await client.ConnectAsync();
+            await _client.ConnectAsync();
         }
 
         private DataStorage(string host, int port)
         {
-            client = new Client(host, port);
+            _client = new Client(host, port);
         }
 
         public DatabaseReference GetDatabase(string id)
@@ -45,10 +45,10 @@ namespace Lucraft.Database.Client
             return new DatabaseReference(id);
         }
 
-        static internal string MakeRequest(string req)
+        internal static string MakeRequest(string req)
         {
-            client.Send(req);
-            return client.ReadLine();
+            _client.Send(req);
+            return _client.ReadLine();
         }
     }
 }

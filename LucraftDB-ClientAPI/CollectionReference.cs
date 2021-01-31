@@ -2,43 +2,44 @@
 using Lucraft.Utilities.Reflection;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Lucraft.Database.Client
 {
     public class CollectionReference
     {
-        private string DbID { get; init; }
-        public string ID { get; init; }
+        private string DbId { get; }
+        public string Id { get; }
 
-        internal CollectionReference(string dbID, string id)
+        internal CollectionReference(string dbId, string id)
         {
-            DbID = dbID;
-            ID = id;
+            DbId = dbId;
+            Id = id;
         }
 
         public DocumentReference GetDocument(string id)
         {
-            return new DocumentReference(DbID, ID, id);
+            return new DocumentReference(DbId, Id, id);
         }
 
         public CollectionSnapshot Get()
         {
-            string req = $"{RequestType.Get} /{DbID}/{ID}/*";
+            string req = $"{RequestType.Get} /{DbId}/{Id}/*";
             string res = DataStorage.MakeRequest(req);
             return JsonConvert.DeserializeObject<CollectionSnapshot>(res);
         }
 
         public WriteResult Set(object data)
         {
-            string req = $"{RequestType.Set} /{DbID}/{ID}/* {JsonConvert.SerializeObject(data)}";
+            string req = $"{RequestType.Set} /{DbId}/{Id}/* {JsonConvert.SerializeObject(data)}";
             string res = DataStorage.MakeRequest(req);
             return JsonConvert.DeserializeObject<WriteResult>(res);
         }
 
         public QuerySnapshot Query(string queryStr)
         {
-            string req = $"{RequestType.Get} /{DbID}/{ID}/* where {queryStr}";
+            string req = $"{RequestType.Get} /{DbId}/{Id}/* where {queryStr}";
             string res = DataStorage.MakeRequest(req);
             return JsonConvert.DeserializeObject<QuerySnapshot>(res);
         }
@@ -50,8 +51,10 @@ namespace Lucraft.Database.Client
             foreach (var property in typeof(T).GetProperties())
             {
                 var attributes = (DatabaseProperty[])property.GetCustomAttributes(typeof(DatabaseProperty), false);
-                foreach (var attribute in attributes)
-                    exprStr = exprStr.Replace(paramName + "." + property.Name, attribute.name);
+                exprStr = attributes.Aggregate(exprStr,
+                    (current,
+                        attribute) => current.Replace(paramName + "." + property.Name,
+                        attribute.Name));
             }
             return Query(exprStr);
         }
